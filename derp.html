@@ -1,7 +1,15 @@
+<!DOCTYPE html>
 <html>
-<script src='./jquery.min.js'></script>
+<head>
+<title>Test</title>
+<meta charset="UTF-8">
+<!--[if lt IE 9]>
+  <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+<![endif]-->
+<script src='jquery.min.js'></script>
+</head>
 <body>
-	<input type='button' id='plz' value='owowplztoclick' onclick=itsAFunction();>
+	<button type="button" id='plz' onclick=itsAFunction();>owowplztoclick</button>
 	<div id='result'></div>
 	<script>
 		var getQueryStringParams = function(sParam){
@@ -18,13 +26,18 @@
 		var test = getQueryStringParams('test');
 		var sessionId = getQueryStringParams('sessionId');
 		var tunnelId = getQueryStringParams('tunnelId');
+		//var serverImageId = getQueryStringParams('serverImageId');
+		//var serverId = getQueryStringParams('serverId');
+		var browsers = getQueryStringParams('browsers');
+		var os = getQueryStringParams('os');
+		var testcbt = getQueryStringParams('testcbt');
 		var itsAFunction = function(){
 				console.log('owowimclicked');
 				var start = Date.now();
-				for(var i = 0; i<50; i++){
+				for(var i = 0; i<10; i++){
 					$.ajax(
 						{
-							url: 'http://p-p.me/warner/bigasstextfile.txt?number='+i,
+							url: 'http://crossbrowsertesting.github.io/tunnel_time/bigasstextfile.txt?number='+i,
 							success: function(result){
 								console.log('loaded bigass text file');
 							},
@@ -36,12 +49,14 @@
 				var duration = stop-start;
 				console.log('Test lasted '+duration+' ms');
 				$('#result').html(duration+' ms');
+				console.log('about to do ajax call');
 				if(test!=='true'){
 					$.ajax(
 						{
-							url: 'http://crossbrowsertesting.com/code/recordTunnelTime.php?duration='+duration+'&type='+type+'&sessionId='+sessionId+'&tunnelId='+tunnelId,
+							url: 'http://crossbrowsertesting.com/code/recordTunnelTime.php?duration='+duration+'&type='+type+'&sessionId='+sessionId+'&browsers='+browsers+'&testcbt='+testcbt'&os='+os+'&tunnelId='+tunnelId,
 							success: function(result){
 								console.log('recorded time');
+								console.log(result);
 							},
 							async:false
 						}
